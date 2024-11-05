@@ -4,6 +4,7 @@ win = tk.Tk() # How can we create the main application window?
 win.title("Week 2") # How can we set the window title?
 win.iconbitmap("python.ico") # How can we add a custom icon to the window?
 win.geometry("300x300+100+100") # How can we configure the window’s size and position?
+#           ("Width x Height + x + y")
 win.resizable(False, False) # How can we make the window non-resizable?
 
 # How can we create labels in the window?
