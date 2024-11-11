@@ -14,7 +14,8 @@ class MainWindow(tk.Tk):
         # Create widgets for the main window
         self.lbl1 = ttk.Label(self, text="Main Window", font=("Tahoma", 16))
         self.lbl2 = ttk.Label(self)
-        self.btn1 = ttk.Button(self, text="Open Second Window", command=self.open_new_window)
+        self.btn1 = ttk.Button(self, text="Open Second Window",
+                               command=self.open_new_window)
         self.btn2 = ttk.Button(self, text="Close", command=self.destroy)
     def create_layout(self):
         # Arrange the widgets in the main window

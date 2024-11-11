@@ -25,12 +25,12 @@ notebook1.add(tab2, text="Tab 2") # Adds tab2 to the notebook with the label "Ta
 scrolled_text1 = ScrolledText(tab1, width=30, height=10, wrap="word") 
 # Makes the scrolled text widget expand to fill the available space in tab1.
 scrolled_text1.pack(fill="both")
-
 # A label in tab2 with the text "This is tab 2."
 label1 = ttk.Label(tab2, text="This is tab 2.") 
  # A button in tab2 that triggers button_handler to close the window.
 button1 = ttk.Button(tab2, text="Exit", command=button_handler)
 label1.pack(pady=50)
 button1.pack(pady=10)
+
 
 win.mainloop()

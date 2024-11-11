@@ -19,9 +19,9 @@ def print_state():
 # Function to exit the application with a confirmation dialog
 def exit_app():
     dialog_result = msg.askyesno(title="Exit", 
-                                 message="Are you sure you want to exit?")
+                                 message="Sure to exit?")
     # dialog_result = msg.askyesnocancel(title="Exit",
-    #                            message="Are you sure you want to exit?")
+    #                            message="Sure to exit?")
     if dialog_result:
         win.destroy()
 

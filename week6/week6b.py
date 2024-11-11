@@ -22,7 +22,8 @@ def open_second_window():
     # Add a label to the second window
     ttk.Label(win2, text="Second Window").pack(pady=(20, 0))
     # Add a button to close the second window
-    ttk.Button(win2, text="Close", command=close_second_window).pack(pady=(20, 0))
+    ttk.Button(win2, text="Close", 
+               command=close_second_window).pack(pady=(20, 0))
     # Handle the window close event (clicking the 'X' button)
     win2.protocol("WM_DELETE_WINDOW", close_second_window)
 # Function to close the second window and show the main window
@@ -32,7 +33,8 @@ def close_second_window():
     # Destroy the second window
     win2.destroy()
 # Create buttons in the main window
-btn1 = ttk.Button(win, text="Open Second Window", command=open_second_window)
+btn1 = ttk.Button(win, text="Open Second Window", 
+                  command=open_second_window)
 btn2 = ttk.Button(win, text="Close", command=win.destroy)
 # Pack the buttons into the main window
 btn1.pack(pady=(20, 0))

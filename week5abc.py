@@ -32,11 +32,11 @@ def key_press(event):
     lbl2["text"] = event.keysym
 # Function to handle focus gained events
 def focus_gained(event):
-    # Update lbl2 with "Focus Gained" when the entry widget gains focus
+    # Update lbl2 with "text" when the entry widget gains focus
     lbl2["text"] = "Focus Gained"
 # Function to handle focus lost events
 def focus_lost(event):
-    # Update lbl2 with "Focus Lost" when the entry widget loses focus
+    # Update lbl2 with "text" when the entry widget loses focus
     lbl2["text"] = "Focus Lost"
 # Function to handle Return key press events
 def return_key(event):
@@ -44,8 +44,9 @@ def return_key(event):
     lbl2["text"] = entry.get().upper()
 # Function to handle key combination events
 def key_combination(event):
-    # Update lbl2 with "Key combination triggered" when Control-A is pressed
+    # Update lbl2 with "text" when Control-A is pressed
     lbl2["text"] = "Key combination triggered"
+
 
 # Create the main window
 win = tk.Tk()
@@ -97,7 +98,7 @@ entry.bind("<FocusIn>", focus_gained)
 entry.bind("<FocusOut>", focus_lost)
 # Bind Return key press in the entry widget to return_key function
 entry.bind("<Return>", return_key)
-# Bind Control-A key combination in the main window to key_combination function
+# Bind Control-A key combination in the main window to function
 win.bind("<Control-a>", key_combination)
 
 # Start the main loop

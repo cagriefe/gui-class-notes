@@ -51,7 +51,8 @@ win.geometry("300x200+500+200")
 win.iconbitmap("python.ico")
 
 # Create the progressbar widget
-progressbar1 = ttk.Progressbar(win, orient="horizontal", length=250, mode="determinate")  # determinate, indeterminate
+progressbar1 = ttk.Progressbar(win, orient="horizontal", length=250,
+                               mode="determinate")  #indeterminate
 progressbar1.pack(pady=20)
 # Create buttons to control the progressbar
 ttk.Button(win, text="Start", command=start_progressbar).pack(pady=(0, 10))

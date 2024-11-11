@@ -34,8 +34,8 @@ print(per1)
 stu1 = Student("Julia", "Smith", 3.6)
 # Print the string representation of the student
 print(stu1)
-# Example of using the @property decorator for full_name
 
+# Example of using the @property decorator for full_name
 class PersonWithProperty:
     # Constructor to initialize the first and last name
     def __init__(self, first, last):
@@ -77,3 +77,5 @@ per2 = PersonWithProperty("Alice", "Brown", 3.6)
 print(per2.full_name)
 # Print the string representation of the student
 print(per2)
+
+
