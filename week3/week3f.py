@@ -4,7 +4,8 @@ from tkinter import ttk
 # button_handler: Updates label1's text with the 
 # values from entry1, combo1, and the selected radio button.
 def button_handler():
-    label1.configure(text=entry1.get()+ " " + selected_combo_item.get()+ " " +selected_radio_item.get( ))
+    label1.configure(text=entry1.get()+ " " 
+                     + selected_combo_item.get()+ " " +selected_radio_item.get( ))
 
 # checkbox_handler: Enables or disables button1 based on the state of checkbox1.
 def checkbox_handler():

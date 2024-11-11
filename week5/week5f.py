@@ -12,12 +12,10 @@ import threading
 
 # Flag to control the running thread
 stop_thread = False
-
 # Function to start the progressbar continuously
 def start_progressbar():
     # Runs the progressbar continuously
     progressbar1.start(interval=10)  # interval in milliseconds
-
 # Function to stop the progressbar
 def stop_progressbar():
     global stop_thread
@@ -25,7 +23,6 @@ def stop_progressbar():
     stop_thread = True
     # Stops the running progressbar
     progressbar1.stop()
-
 # Function to run the progressbar with a given range
 def run_progressbar():
     global stop_thread
@@ -34,10 +31,8 @@ def run_progressbar():
     # Initialize the progressbar value and maximum
     progressbar1["value"] = 0
     progressbar1["maximum"] = 100
-
     # Start a new thread to update the progress bar
     threading.Thread(target=progressbar_task).start()
-
 # Function to update the progressbar in a separate thread
 def progressbar_task():
     # This runs in a separate thread.
@@ -58,7 +53,6 @@ win.iconbitmap("python.ico")
 # Create the progressbar widget
 progressbar1 = ttk.Progressbar(win, orient="horizontal", length=250, mode="determinate")  # determinate, indeterminate
 progressbar1.pack(pady=20)
-
 # Create buttons to control the progressbar
 ttk.Button(win, text="Start", command=start_progressbar).pack(pady=(0, 10))
 ttk.Button(win, text="Stop", command=stop_progressbar).pack(pady=(0, 10))

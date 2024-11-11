@@ -8,15 +8,11 @@ win.geometry("300x300+100+100")
 
 # uniform: Creates groups of rows or columns that will resize uniformly. 
 # It can take any string value of your choice.
-
 # index: Specifies the column index (0, 1, 2).
-
 # weight: Determines how much the column should expand relative to other columns. 
 # Higher weight means more expansion.
-
 # uniform: Ensures that all columns with the same uniform value resize uniformly. 
 # Here, all columns have the same uniform value "eq".
-
 win.columnconfigure(index=0, weight=1, uniform="eq")
 win.columnconfigure(index=1, weight=2, uniform="eq")
 win.columnconfigure(index=2, weight=3, uniform="eq")

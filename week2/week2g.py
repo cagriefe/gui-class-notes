@@ -11,8 +11,11 @@ win = tk.Tk() # How can we create the main application window?
 win.title("Week 2") # How can we set the window title?
 win.iconbitmap("python.ico") # How can we add a custom icon to the window?
 win.geometry("300x300+100+100") # How can we configure the window’s size and position?
+#           ("Width x Height + x + y")
+win.resizable(False, False) # How can we make the window non-resizable?
 
-label1 = tk.Label(win, text="Click the button to generate a number!")
+# Create labels in the window and pack it
+label1 = tk.Label(win, text="generate a number button", bg="red", fg="white")
 label1.pack()
 
 # How can we create a button that triggers the click handler?
