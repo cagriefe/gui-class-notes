@@ -35,10 +35,10 @@ class AddNewGrade(tk.Tk):
     def create_layout(self):
         # Configure the grid layout
         self.columnconfigure(index=0, weight=1, uniform="eq")
-        """More"""
+        # """More"""
         # Place the labels and entry fields in the grid
         self.lbl_fname.grid(column=0, row=0)
-        """"More""""
+        # """"More""""
         
     def save_grade(self):
         # Validate input fields
