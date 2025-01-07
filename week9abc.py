@@ -7,7 +7,6 @@ from tkinter import ttk
 from tkinter import messagebox as msg
 import sqlite3
 
-
 class GradeBookDatabase:
 
     def __init__(self, db_name="gradebook.db"):
@@ -44,7 +43,8 @@ class GradeBookDatabase:
                 ('John', 'Howell', 90)]
 
         for item in data:
-            cur.execute("insert into GradeBook(fname, lname, grade) values(?, ?, ?)", item)
+            cur.execute("""insert into GradeBook(fname, lname, grade)
+                        values(?, ?, ?)""", item)
 
         conn.commit()
         conn.close()
@@ -52,7 +52,9 @@ class GradeBookDatabase:
     def save_grade(self, fname, lname, grade):
         conn = sqlite3.connect(self.db_name)
         cur = conn.cursor()
-        cur.execute("insert into GradeBook(fname, lname, grade) values(?, ?, ?)", (fname, lname, grade))
+        cur.execute("""insert into GradeBook(fname, lname, grade)
+                    values(?, ?, ?)""",
+                    (fname, lname, grade))
         conn.commit()
         conn.close()
 
@@ -78,7 +80,6 @@ class GradeBookDatabase:
         conn = sqlite3.connect(self.db_name)
         cur = conn.cursor()
         cur.execute("delete from GradeBook where gid=?", (gid, ))
-        # cur.execute("delete from GradeBook where gid=:gid", {"gid": gid})
         conn.commit()
         conn.close()
 
@@ -227,7 +228,7 @@ class ListGrades(tk.Tk):  # Defining a class that inherits from tk.Tk
         if len(self.tv.selection()) == 0:  # Checking if no rows are selected
             return  # Exiting the method
             
-        answer = msg.askyesno(title="Confirm Delete", message="Are you sure you want to delete the selected row?")  # Asking for confirmation
+        answer = msg.askyesno(title="Confirm Delete", message="sure delete the selected row?")  # Asking for confirmation
         if answer:  # If confirmed
             for i in self.tv.selection():  # Looping through selected items
                 selected_row = self.tv.item(i)["values"]  # Getting selected row values
@@ -307,9 +308,11 @@ class EditGrade(tk.Toplevel):
 
         try:
             # Update the database
-            self.db.update_grade(gid=self.gid, fname=self.fname.get(), lname=self.lname.get(), grade=self.grade.get())
+            self.db.update_grade(gid=self.gid, fname=self.fname.get(), 
+                                 lname=self.lname.get(), grade=self.grade.get())
             # Update the Treeview row (that is in the parent window)
-            self.parent.tv.item(self.rowid, values=(self.gid, self.fname.get(), self.lname.get(), self.grade.get()))
+            self.parent.tv.item(self.rowid, values=(self.gid, self.fname.get(),
+                                                    self.lname.get(), self.grade.get()))
             # Close the window
             self.destroy()
         except (tk.TclError, OverflowError):  # Handling exceptions

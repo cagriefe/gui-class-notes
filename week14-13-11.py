@@ -50,7 +50,8 @@ class ToDoDatabase:
     def update_status(self, item_id, status):
         conn = sqlite3.connect(self.db_name)
         cur = conn.cursor()
-        cur.execute("update todolist set status = ? where id = ?", (status, item_id))
+        cur.execute("update todolist set status = ? where id = ?", 
+                    (status, item_id))
         conn.commit()
         conn.close()
 
@@ -74,14 +75,17 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
 
         # Widgets for listing To-Do items
         self.frm_list = ttk.Labelframe(self, text="To-Do List")  # Creating a Labelframe for the list
-        self.tv = ttk.Treeview(self.frm_list, columns=("Item", "Status"), show="headings", selectmode="browse")  # Creating a Treeview widget
+        self.tv = ttk.Treeview(self.frm_list, columns=("Item", "Status"),
+                               show="headings", selectmode="browse")  # Creating a Treeview widget
         self.tv.heading("Item", text="Item")  # Setting the heading for the Item column
         self.tv.heading("Status", text="Status")  # Setting the heading for the Status column
 
         # Widgets for deleting/updating To-Do items
         self.frm_actions = ttk.Labelframe(self, text="Actions")  # Creating a Labelframe for actions
         self.btn_delete = ttk.Button(self.frm_actions, text="Delete", command=self.delete_item)  # Creating a button to delete the item
-        self.cbtn_status = ttk.Checkbutton(self.frm_actions, text="Mark as Completed", variable=self.status_var, command=self.toggle_status, bootstyle="round-toggle")  # Creating a checkbutton to mark the item as completed
+        self.cbtn_status = ttk.Checkbutton(self.frm_actions, text="Mark as Completed",
+                                           variable=self.status_var,
+                                           command=self.toggle_status, bootstyle="round-toggle")  # Creating a checkbutton to mark the item as completed
 
         # Event bindings for the Treeview and Entry widgets
         self.tv.bind("<<TreeviewSelect>>", self.on_item_select)  # Binding the Treeview selection event
@@ -104,7 +108,8 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
         self.frm_actions.pack(fill="x", padx=15, pady=15)  # Packing the actions frame with padding
 
         # Place entry and add button widgets
-        self.entry_item.pack(side="left", padx=(15, 0), pady=15, fill="x", expand=True)  # Packing the entry widget with padding
+        self.entry_item.pack(side="left", padx=(15, 0), pady=15,
+                             fill="x", expand=True)  # Packing the entry widget with padding
         self.btn_add.pack(side="right", padx=15, pady=15)  # Packing the add button with padding
 
         # Place the Treeview widget
@@ -137,8 +142,8 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
             self.tv.delete(item)  # Deleting each item
 
         for row in self.db.get_items():  # Fetching updated data and populating the Treeview
-            self.tv.insert(parent="", index="end", iid=row[0], values=(row[1], row[2]))  # Inserting each row
-
+            self.tv.insert(parent="", index="end", iid=row[0], values=(row[1], row[2]))  
+                                                                    # Inserting each row
         tv_items = self.tv.get_children()  # Getting the Treeview items
         if tv_items:  # If there are items in the Treeview
             self.enable_actions()  # Enabling the action buttons
@@ -153,6 +158,8 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
             self.refresh_list()  # Refreshing the list
             self.entry_item.delete(0, "end")  # Clearing the entry widget
             self.entry_item.focus_set()  # Setting focus to the entry widget
+
+
 
     def delete_item(self):  # Method to delete an item
         selected_item = self.tv.selection()  # Getting the selected item
@@ -176,7 +183,8 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
     def import_data(self):  # Method to import data
         file_filter = (("Excel files", "*.xlsx"),  # Setting the file filter for Excel files
                        ("All files", "*.*"))  # Setting the file filter for all files
-        source_file = fd.askopenfile(title="Choose file", filetypes=file_filter)  # Opening a file dialog to choose the source file
+        source_file = fd.askopenfile(title="Choose file",
+                                     filetypes=file_filter)  # Opening a file dialog to choose the source file
 
         if source_file is not None:  # If a file is selected
             wb = load_workbook(source_file.name)  # Loading the source file
@@ -197,9 +205,10 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
 
             self.refresh_list()  # Re-populating the Treeview
 
+
     def export_data(self):  # Method to export data
         if not self.tv.get_children():  # If there are no items in the Treeview
-            msg.show_error(title="Export Data", message="No data available to export.")  # Showing an error message
+            msg.show_error(title="Export Data", message="No data available")  # Showing an error message
             return
 
         wb = Workbook()  # Creating a new workbook
@@ -210,8 +219,10 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
 
         row_count = 2  # Starting row count for data
         for item_id in self.tv.get_children():  # Reading data from Treeview
-            ws.cell(row=row_count, column=1, value=self.tv.item(item_id)["values"][0])  # Adding item to the worksheet
-            ws.cell(row=row_count, column=2, value=self.tv.item(item_id)["values"][1])  # Adding status to the worksheet
+            ws.cell(row=row_count, column=1,
+                    value=self.tv.item(item_id)["values"][0])  # Adding item to the worksheet
+            ws.cell(row=row_count, column=2, 
+                    value=self.tv.item(item_id)["values"][1])  # Adding status to the worksheet
             row_count += 1  # Incrementing row count
 
         total_items_row = row_count + 1  # Row for total items
@@ -219,54 +230,51 @@ class ToDoList(ttk.Window):  # Defining a class that inherits from ttk.Window
         not_completed_items_row = row_count + 3  # Row for not completed items
 
         ws.cell(row=total_items_row, column=1, value="Total items:")  # Adding label for total items
-        ws.cell(row=total_items_row, column=2, value=f"=COUNTA(A2:A{row_count - 1})")  # Adding formula for total items
+        ws.cell(row=total_items_row, column=2, 
+                value=f"=COUNTA(A2:A{row_count - 1})")  # Adding formula for total items
 
-        ws.cell(row=completed_items_row, column=1, value="Completed items:")  # Adding label for completed items
-        ws.cell(row=completed_items_row, column=2, value=f"=COUNTIF(B2:B{row_count - 1}, \"Done\")")  # Adding formula for completed items
+        ws.cell(row=completed_items_row, column=1,
+                value="Completed items:")  # Adding label for completed items
+        ws.cell(row=completed_items_row, column=2, 
+                value=f"=COUNTIF(B2:B{row_count - 1}, \"Done\")")  # Adding formula for completed items
 
-        ws.cell(row=not_completed_items_row, column=1, value="Not completed items:")  # Adding label for not completed items
-        ws.cell(row=not_completed_items_row, column=2, value=f"=COUNTIF(B2:B{row_count - 1}, \"Pending\")")  # Adding formula for not completed items
+        ws.cell(row=not_completed_items_row, column=1, 
+                value="Not completed items:")  # Adding label for not completed items
+        ws.cell(row=not_completed_items_row, column=2, 
+                value=f"=COUNTIF(B2:B{row_count - 1}, \"Pending\")")  # Adding formula for not completed items
 
         wb.save("exported_list.xlsx")  # Saving the workbook
-        msg.show_info(title="Export Data", message="The list has been exported and saved as 'exported_list.xlsx'.")  # Showing an info message
+        msg.show_info(title="Export Data",
+                      message="exported and saved as 'exported_list.xlsx'.")  # Showing an info message
     
     def show_pie_chart(self):
         # Retrieve items from the database
         items = self.db.get_items()
-        
         # If there are no items, exit the function
         if len(items) == 0:
-            return
-        
+            return 
         # Count the number of completed items
         completed = sum(1 for item in items if item[2] == "Done")
-        
         # Count the number of not completed items
         not_completed = sum(1 for item in items if item[2] == "Pending")
-        
         # Define labels for the pie chart
         labels = ["Completed", "Not Completed"]
-        
         # Define sizes for each section of the pie chart
         sizes = [completed, not_completed]
-        
         # Define colors for each section of the pie chart
         colors = ["lightblue", "red"]
-        
         # Define the explode parameter to highlight the "Completed" section
         explode = [0.1, 0] # Highlight the "Completed" section
-        
         # Create the pie chart
-        plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct="%.1f%%", shadow=True, startangle=90)
-        
+        plt.pie(sizes, explode=explode, labels=labels, 
+                colors=colors, autopct="%.1f%%", shadow=True, startangle=90)
         # Set the title of the pie chart
         plt.title("To-Do list Status")
-        
         # Display the pie chart
         plt.show()
-        
 
 gradebook_db = ToDoDatabase()
 gradebook_db.create_table()
 
 app = ToDoList()  # Creating an instance of ToDoList
+

@@ -21,11 +21,14 @@ class UnitConverter(ctk.CTk):
         self.container = ctk.CTkFrame(self)  # Create a frame to contain other widgets
         self.lbl_entry = ctk.CTkLabel(self.container, text="Enter value:")  # Label for entry
         self.lbl_combo = ctk.CTkLabel(self.container, text="Convert")  # Label for combo box
-        self.lbl_result = ctk.CTkLabel(self.container, text="Enter a number and click the Convert button.")  # Label for result
+        self.lbl_result = ctk.CTkLabel(self.container, 
+                                       text="Enter a number and click the Convert button.")  # Label for result
         
         self.txt_entry = ctk.CTkEntry(self.container)  # Entry widget for user input
-        self.cmb_unit = ctk.CTkComboBox(self.container, values=["Miles to Kilometers", "Kilometers to Miles"])  # Combo box for unit selection
-        self.btn_convert = ctk.CTkButton(self.container, text="Convert", width=80, command=self.convert)  # Button to trigger conversion
+        self.cmb_unit = ctk.CTkComboBox(self.container, 
+                                        values=["Miles to Kilometers", "Kilometers to Miles"])  # Combo box for unit selection
+        self.btn_convert = ctk.CTkButton(self.container,
+                                         text="Convert", width=80, command=self.convert)  # Button to trigger conversion
         
         self.bind("<Return>", lambda e : self.convert())  # Bind the Enter key to the convert method
         
